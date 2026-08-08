@@ -1,0 +1,68 @@
+{% extends 'admins/adminbase.html' %}
+{% load static %}
+{% block contents %}
+<style>
+    .admin-home-container {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 40px;
+        border-radius: 15px;
+        backdrop-filter: blur(8px);
+        text-align: center;
+        max-width: 900px;
+        margin: 0 auto;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1.2s ease 0.2s forwards;
+    }
+    .admin-home-container h2 {
+        font-size: 2.5rem;
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        background: linear-gradient(45deg, #22C55E, #10B981);
+        -webkit-background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+        margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease forwards;
+    }
+    .admin-home-container p {
+        font-size: 1.1rem;
+        color: #FFFFFF;
+        line-height: 1.8;
+        max-width: 700px;
+        margin: 0 auto 15px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @media (max-width: 768px) {
+        .admin-home-container {
+            padding: 25px;
+        }
+        .admin-home-container h2 {
+            font-size: 2rem;
+        }
+        .admin-home-container p {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<div class="admin-home-container">
+    <h2>Welcome to EV Battery Admin Panel</h2>
+    <p>
+        As an administrator of the EV Battery Optimization System, you play a pivotal role in managing real-time battery performance data, reviewing predictive modeling results, and ensuring the seamless operation of the platform.
+    </p>
+    <p>
+        From overseeing user accounts to analyzing historical battery performance records, use the tools in the navigation bar to efficiently control the backend of this advanced predictive system.
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'users/userbase.html' %}
+{% load static %}
+{% block contents %}
+<style>
+    .center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 100px); /* Adjust for fixed navbar height */
+        text-align: center;
+        padding-top: 100px; /* Space for navbar */
+        padding-bottom: 20px;
+    }
+    .content-box {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 40px;
+        border-radius: 15px;
+        max-width: 700px;
+        backdrop-filter: blur(8px);
+        box-shadow: 0 0 15px rgba(34, 197, 94, 0.3);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1.2s ease 0.2s forwards;
+        transition: box-shadow 0.3s ease;
+    }
+    .content-box:hover {
+        box-shadow: 0 0 25px rgba(34, 197, 94, 0.5);
+    }
+    .content-box h2 {
+        font-size: 2.5rem;
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        background: linear-gradient(45deg, #22C55E, #10B981);
+        -webkit-background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+        margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease forwards;
+    }
+    .content-box p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: #FFFFFF;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        margin: 0;
+    }
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @media (max-width: 768px) {
+        .center-content {
+            padding-top: 80px;
+            padding-bottom: 10px;
+            min-height: calc(100vh - 80px);
+        }
+        .content-box {
+            padding: 25px;
+            max-width: 90%;
+        }
+        .content-box h2 {
+            font-size: 2rem;
+        }
+        .content-box p {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<div class="center-content">
+    <div class="content-box">
+        <h2>Welcome to EV Battery Optimization System</h2>
+        <p>
+            This platform empowers users to predict battery performance in electric vehicles using advanced machine learning algorithms. 
+            Based on parameters like temperature, charge cycles, and driving patterns, our model provides accurate battery health forecasts. 
+            Use the navigation bar to explore battery datasets, train the model, or analyze predictions. Optimize efficiency. Drive smarter.
+        </p>
+    </div>
+</div>
+{% endblock %}

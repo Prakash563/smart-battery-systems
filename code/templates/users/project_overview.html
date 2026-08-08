@@ -1,0 +1,141 @@
+{% extends 'users/userbase.html' %}
+{% load static %}
+{% block contents %}
+<style>
+    .overview-container {
+        background-color: rgba(255, 255, 255, 0.6);
+        border-radius: 15px;
+        padding: 40px;
+        margin: 20px auto;
+        box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+        max-width: 1000px;
+        color: #333;
+        animation: fadeInUp 1.2s ease 0.2s forwards;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .overview-container h1, 
+    .overview-container h2 {
+        color: #064E3B;
+        font-weight: bold;
+    }
+
+    .section-title {
+        border-bottom: 2px solid #10B981;
+        padding-bottom: 10px;
+        margin-top: 40px;
+    }
+
+    .highlight {
+        background-color: #d1fae5;
+        border-left: 5px solid #10B981;
+        padding: 15px 25px;
+        margin: 20px 0;
+        border-radius: 8px;
+    }
+
+    .overview-container ul {
+        padding-left: 20px;
+    }
+
+    .overview-container ul li {
+        margin-bottom: 10px;
+    }
+
+    .overview-container .btn-primary {
+        background: linear-gradient(45deg, #22C55E, #10B981);
+        border: none;
+        font-weight: bold;
+        padding: 12px 30px;
+        border-radius: 10px;
+        margin-top: 20px;
+        box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+        transition: 0.3s ease;
+    }
+
+    .overview-container .btn-primary:hover {
+        background: linear-gradient(45deg, #059669, #065F46);
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.7);
+    }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .overview-container {
+            padding: 25px;
+        }
+
+        .overview-container h1 {
+            font-size: 1.8rem;
+        }
+    }
+</style>
+
+<div class="overview-container">
+    <h1 class="text-center">🔋 EV Battery SOH Forecasting</h1>
+
+    <h2 class="section-title">📌 Project Overview</h2>
+    <p>
+        This system enhances the lifespan and efficiency of electric vehicle (EV) batteries by predicting their 
+        <strong>State of Health (SOH)</strong> using advanced machine learning models. 
+        Users can input battery metrics and instantly receive insights on battery performance and health.
+    </p>
+
+    <div class="highlight">
+        <strong>Key Features:</strong> Predict SOH, visualize results, assess battery health, and estimate time-to-replacement.
+    </div>
+
+    <h2 class="section-title">💡 Why This Matters</h2>
+    <ul>
+        <li><strong>Performance Monitoring:</strong> Keep your EV battery in optimal condition.</li>
+        <li><strong>Preventive Maintenance:</strong> Identify issues early to avoid failure.</li>
+        <li><strong>Cost Efficiency:</strong> Avoid unnecessary replacements and repairs.</li>
+        <li><strong>Eco-Friendly:</strong> Supports sustainable electric vehicle usage.</li>
+    </ul>
+
+    <h2 class="section-title">🧠 Algorithms Implemented</h2>
+    <ul>
+        <li><strong>XGBoost Regressor:</strong> High-accuracy SOH forecasting.</li>
+        <li><strong>LightGBM Regressor:</strong> Fast and efficient for real-time predictions.</li>
+        <li><strong>Random Forest Regressor:</strong> Reliable baseline and interpretability.</li>
+    </ul>
+
+    <h2 class="section-title">📦 Libraries & Technologies</h2>
+    <ul>
+        <li><strong>Data Handling:</strong> pandas, numpy</li>
+        <li><strong>ML & Modeling:</strong> xgboost, lightgbm, scikit-learn, joblib</li>
+        <li><strong>Visualization:</strong> matplotlib, seaborn, plotly</li>
+        <li><strong>Web Framework:</strong> Django</li>
+    </ul>
+
+    <h2 class="section-title">🌐 Application Features</h2>
+    <ul>
+        <li><strong>Training Module:</strong> Trains models and visualizes:
+            <ul>
+                <li>Correlation Heatmap</li>
+                <li>Actual vs Predicted Charts</li>
+                <li>Evaluation Metrics (MAE, MSE, RMSE, R²)</li>
+                <li>Feature Importance</li>
+            </ul>
+        </li>
+        <li><strong>SOH Prediction Interface:</strong> Accepts input & displays:
+            <ul>
+                <li>Predicted SOH</li>
+                <li>Health Status</li>
+                <li>Replacement Estimation</li>
+                <li>Performance Tips</li>
+            </ul>
+        </li>
+    </ul>
+
+    <div class="text-center">
+        <a href="{% url 'predict' %}" class="btn btn-primary btn-lg">🚗 Try SOH Prediction</a>
+    </div>
+</div>
+{% endblock %}

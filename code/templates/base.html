@@ -1,0 +1,262 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>EV Battery Optimization</title>
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background-image: url("{% static 'bg1.jpg' %}");
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            color: #FFFFFF;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Semi-transparent overlay for readability */
+            z-index: 0;
+        }
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.85);
+            padding: 15px 0;
+            position: relative;
+            z-index: 1;
+        }
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #22C55E !important;
+            text-shadow: 0 0 5px rgba(34, 197, 94, 0.5);
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .navbar-brand:hover {
+            color: #16A34A !important;
+            transform: scale(1.05);
+        }
+        .nav-link {
+            color: #FFFFFF !important;
+            font-size: 1.1rem;
+            margin: 0 10px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #1E3A8A, #3B82F6);
+            box-shadow: 0 0 8px rgba(34, 197, 94, 0.3);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #FFFFFF !important;
+            background: linear-gradient(45deg, #22C55E, #10B981);
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.7);
+            transform: translateY(-2px);
+        }
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+            z-index: 0;
+        }
+        .nav-link:hover::before {
+            width: 250px;
+            height: 250px;
+        }
+        .nav-link span {
+            position: relative;
+            z-index: 1;
+        }
+        .nav-link::after {
+            content: '🔋';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .nav-link:hover::after {
+            opacity: 1;
+        }
+        .nav-link:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 5px rgba(34, 197, 94, 0.3);
+        }
+        .content {
+            flex-grow: 1;
+            padding: 40px 20px;
+            margin: 20px auto;
+            max-width: 1200px;
+            {% comment %} background-color: rgba(255, 255, 255, 0.15); {% endcomment %}
+            border-radius: 15px;
+            {% comment %} box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); {% endcomment %}
+            {% comment %} backdrop-filter: blur(10px); {% endcomment %}
+            position: relative;
+            z-index: 1;
+        }
+        h1, h2 {
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            color: #1E3A8A;
+            position: relative;
+            z-index: 1;
+        }
+        .btn-primary, .btn-secondary {
+            position: relative;
+            overflow: hidden;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #22C55E, #10B981);
+            color: #FFFFFF;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+        .btn-secondary {
+            background: linear-gradient(45deg, #6B7280, #4B5563);
+            box-shadow: 0 0 10px rgba(107, 114, 128, 0.5);
+        }
+        .btn-primary:hover, .btn-secondary:hover {
+            background: linear-gradient(45deg, #16A34A, #059669);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+            transform: translateY(-3px);
+        }
+        .btn-primary::before, .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+            z-index: -1;
+        }
+        .btn-primary:hover::before, .btn-secondary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        .btn-primary::after, .btn-secondary::after {
+            content: '⚡️';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .btn-primary:hover::after, .btn-secondary:hover::after {
+            opacity: 1;
+        }
+        .btn-primary:active, .btn-secondary:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        footer {
+            text-align: center;
+            padding: 15px 0;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: #FFFFFF;
+            font-size: 0.9rem;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            z-index: 1;
+        }
+        footer a {
+            color: #22C55E;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #16A34A;
+        }
+        @media (max-width: 768px) {
+            .content {
+                margin: 10px;
+                padding: 20px;
+            }
+            .navbar-nav {
+                text-align: center;
+            }
+            .nav-link {
+                margin: 5px 0;
+                padding: 8px 15px;
+            }
+            .btn-primary, .btn-secondary {
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'index' %}">EV Battery Optimization</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}"><span>Home</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'UserLogin' %}"><span>User Login</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'AdminLogin' %}"><span>Admin Login</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'UserRegisterForm' %}"><span>Create Account</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content">
+        {% block contents %}
+        {% endblock %}
+    </div>
+
+    <footer>
+        <p>© 2025 EV Battery Optimization Project | Saikumar_Velmula</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

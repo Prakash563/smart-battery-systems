@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% block contents %}
+<style>
+    h1 {
+        color: #22C55E;
+        font-size: 2.8rem;
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        text-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+        margin-bottom: 30px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease forwards;
+    }
+    .info-box {
+        background-color: rgba(0, 0, 0, 0.6);
+        padding: 30px;
+        border-radius: 15px;
+        color: #FFFFFF;
+        max-width: 900px;
+        margin: auto;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(5px);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1.2s ease 0.2s forwards;
+    }
+    p {
+        font-size: 1.3rem;
+        line-height: 1.9;
+        margin-bottom: 25px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    .btn-explore {
+        position: relative;
+        overflow: hidden;
+        border: none;
+        border-radius: 12px;
+        padding: 14px 30px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background: linear-gradient(45deg, #22C55E, #10B981);
+        color: #FFFFFF;
+        box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        z-index: 1;
+    }
+    .btn-explore:hover {
+        background: linear-gradient(45deg, #16A34A, #059669);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+        transform: translateY(-3px);
+    }
+    .btn-explore::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+        z-index: -1;
+    }
+    .btn-explore:hover::before {
+        width: 300px Aes: rgba(255, 255, 255, 0.3);
+        height: 300px;
+    }
+    .btn-explore::after {
+        content: '⚡️';
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .btn-explore:hover::after {
+        opacity: 1;
+    }
+    .btn-explore:active {
+        transform: scale(0.95);
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+    .content-wrapper {
+        margin-top: 60px;
+        text-align: center;
+    }
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2rem;
+        }
+        p {
+            font-size: 1.1rem;
+        }
+        .info-box {
+            padding: 20px;
+        }
+        .btn-explore {
+            padding: 12px 25px;
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<div class="content d-flex flex-column align-items-center">
+    <div class="content-wrapper">
+        <h1>EV Battery Optimization System</h1>
+        <div class="info-box">
+            <p>
+                Optimize electric vehicle battery performance using advanced predictive modeling. Our system forecasts state of health (SoH), and thermal behavior, enabling better range estimation, extended battery life, and enhanced safety.
+            </p>
+            <a href="{% url 'UserLogin' %}" class="btn btn-explore">Start Predicting</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

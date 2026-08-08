@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+<style>
+    .container {
+        max-width: 450px;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        padding: 40px;
+        margin: 80px auto;
+        margin-top:-60px;
+        backdrop-filter: blur(8px);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1.2s ease 0.2s forwards;
+        position: relative;
+        z-index: 1;
+    }
+    .admin-login-heading {
+        font-size: 2.5rem;
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        text-align: center;
+        margin-bottom: 30px;
+        background: linear-gradient(45deg, #22C55E, #10B981);
+        -webkit-background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease forwards;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #FFFFFF;
+        padding: 12px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    }
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+    .form-control:focus {
+        border-color: #22C55E;
+        box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+        background-color: rgba(255, 255, 255, 0.2);
+        outline: none;
+    }
+    .btn-primary, .btn-secondary {
+        position: relative;
+        overflow: hidden;
+        border: none;
+        border-radius: 12px;
+        padding: 14px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        width: 100%;
+        z-index: 1;
+    }
+    .btn-primary {
+        background: linear-gradient(45deg, #22C55E, #10B981);
+        color: #FFFFFF;
+        box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+    }
+    .btn-secondary {
+        background: linear-gradient(45deg, #6B7280, #4B5563);
+        color: #FFFFFF;
+        box-shadow: 0 0 10px rgba(107, 114, 128, 0.5);
+    }
+    .btn-primary:hover, .btn-secondary:hover {
+        background: linear-gradient(45deg, #16A34A, #059669);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+        transform: translateY(-3px);
+    }
+    .btn-primary::before, .btn-secondary::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+        z-index: -1;
+    }
+    .btn-primary:hover::before, .btn-secondary:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+    .btn-primary::after, .btn-secondary::after {
+        content: '⚡️';
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .btn-primary:hover::after, .btn-secondary:hover::after {
+        opacity: 1;
+    }
+    .btn-primary:active, .btn-secondary:active {
+        transform: scale(0.95);
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+    .alert-success {
+        background-color: rgba(34, 197, 94, 0.2);
+        color: #FFFFFF;
+        border: 1px solid #22C55E;
+        border-radius: 8px;
+        padding: 10px;
+        margin-top: 20px;
+        text-align: center;
+        opacity: 0;
+        animation: fadeIn 0.5s ease forwards;
+    }
+    .button-group {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+    @media (max-width: 768px) {
+        .container {
+            max-width: 90%;
+            padding: 25px;
+            margin: 50px auto;
+        }
+        .admin-login-heading {
+            font-size: 2rem;
+        }
+        .form-control {
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+        .btn-primary, .btn-secondary {
+            padding: 12px;
+            font-size: 1rem;
+        }
+        .button-group {
+            flex-direction: column;
+            gap: 10px;
+        }
+    }
+</style>
+
+<section class="content">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2 class="admin-login-heading">Admin Login</h2>
+            <form action="{% url 'AdminLoginCheck' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="text" class="form-control" name="loginid" required placeholder="Enter Login ID">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="pswd" required placeholder="Enter Password">
+                </div>
+                <div class="button-group">
+                    <button class="btn btn-primary" type="submit">Login</button>
+                    <button class="btn btn-secondary" type="reset">Reset</button>
+                </div>
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

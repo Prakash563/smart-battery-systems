@@ -1,0 +1,214 @@
+{% extends 'admins/adminbase.html' %}
+{% load static %}
+{% block contents %}
+<style>
+    .container {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 30px;
+        border-radius: 15px;
+        backdrop-filter: blur(8px);
+        margin-top: 30px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1.2s ease 0.2s forwards;
+    }
+    .section-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .section-header h2 {
+        font-size: 2.5rem;
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        background: linear-gradient(45deg, #22C55E, #10B981);
+        -webkit-background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+        margin-bottom: 15px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease forwards;
+    }
+    .section-header p {
+        font-size: 1.1rem;
+        color: #FFFFFF;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .table-responsive {
+        overflow-x: auto;
+        opacity: 0;
+        animation: fadeInUp 1.4s ease 0.4s forwards;
+    }
+    table {
+        font-family: 'Arial', sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 20px;
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    table th, table td {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 12px;
+        text-align: left;
+        color: #FFFFFF;
+        font-size: 1rem;
+    }
+    table th {
+        background: linear-gradient(45deg, #22C55E, #10B981);
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        padding: 15px;
+    }
+    table tr {
+        background-color: rgba(255, 255, 255, 0.1);
+        transition: background-color 0.3s ease;
+    }
+    table tr:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    .btn-activate, .btn-delete {
+        position: relative;
+        display: inline-block;
+        text-decoration: none;
+        color: #FFFFFF;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 8px 15px;
+        border-radius: 8px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        margin-right: 5px;
+    }
+    .btn-activate {
+        background: linear-gradient(45deg, #22C55E, #10B981);
+        box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+    }
+    .btn-delete {
+        background: linear-gradient(45deg, #EF4444, #B91C1C);
+        box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+    }
+    .btn-activate:hover, .btn-delete:hover {
+        background: linear-gradient(45deg, #16A34A, #059669);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+        transform: translateY(-2px);
+    }
+    .btn-delete:hover {
+        background: linear-gradient(45deg, #DC2626, #991B1B);
+    }
+    .btn-activate::before, .btn-delete::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+        z-index: -1;
+    }
+    .btn-activate:hover::before, .btn-delete:hover::before {
+        width: 150px;
+        height: 150px;
+    }
+    .btn-activate::after, .btn-delete::after {
+        content: '⚡️';
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.8rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .btn-activate:hover::after, .btn-delete:hover::after {
+        opacity: 1;
+    }
+    .btn-activate:active, .btn-delete:active {
+        transform: scale(0.95);
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+    .action-text {
+        color: #FFFFFF;
+        font-size: 0.9rem;
+    }
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px;
+            margin: 20px;
+        }
+        .section-header h2 {
+            font-size: 2rem;
+        }
+        .section-header p {
+            font-size: 1rem;
+        }
+        table th, table td {
+            padding: 8px;
+            font-size: 0.9rem;
+        }
+        .btn-activate, .btn-delete {
+            padding: 6px 10px;
+            font-size: 0.8rem;
+        }
+    }
+</style>
+
+<section class="content">
+    <div class="container">
+        <div class="we-do-details">
+            <div class="section-header">
+                <h2>Manage Registered Users</h2>
+                <p>View and manage the list of registered users in the EV Battery Optimization System.</p>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Name</th>
+                            <th>Login ID</th>
+                            <th>Mobile</th>
+                            <th>Email</th>
+                            <th>Locality</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.name }}</td>
+                            <td>{{ i.loginid }}</td>
+                            <td>{{ i.mobile }}</td>
+                            <td>{{ i.email }}</td>
+                            <td>{{ i.locality }}</td>
+                            <td>{{ i.status }}</td>
+                            <td>
+                                {% if i.status == 'waiting' %}
+                                <a class="btn-activate" href="{% url 'activate_users' %}?uid={{ i.id }}">Activate</a>
+                                {% else %}
+                                <span class="action-text">Activated</span> / 
+                                <a class="btn-delete" href="{% url 'delete_users' %}?uid={{ i.id }}">Delete</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

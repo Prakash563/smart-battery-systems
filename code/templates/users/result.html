@@ -1,0 +1,56 @@
+{% extends 'users/userbase.html' %}
+{% load static %}
+
+{% block contents %}
+<style>
+    body {
+        {% comment %} background: linear-gradient(to right, #1e3c72, #2a5298); {% endcomment %}
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #f0f0f0;
+    }
+
+    .result-container {
+        margin-left: 240px; /* Sidebar offset */
+        padding: 50px;
+        max-width: 700px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 2.2rem;
+        color: #00e6e6;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 3px black;
+    }
+
+    .result-card {
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .result-card p {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 12px 16px;
+        border-left: 6px solid #00e6e6;
+        border-radius: 6px;
+    }
+
+    .result-card strong {
+        color: #ffd700;
+    }
+</style>
+
+<div class="result-container">
+    <h1>🔍 Battery Health Projection Result</h1>
+    <div class="result-card">
+        <p><strong>Predicted SOH (%):</strong> {{ predicted_soh }}</p>
+        <p><strong>Status:</strong> {{ description }}</p>
+        <p><strong>Estimated Time to Replacement:</strong> {{ time_to_replacement }}</p>
+        <p><strong>Recommendations:</strong> {{ recommendations }}</p>
+    </div>
+</div>
+{% endblock %}

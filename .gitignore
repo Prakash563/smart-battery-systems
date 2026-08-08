@@ -1,0 +1,23 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Database
+*.sqlite3
+
+# Django
+*.log
+
+# Virtual environments
+venv/
+env/
+.env
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db

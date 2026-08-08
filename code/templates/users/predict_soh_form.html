@@ -1,0 +1,102 @@
+{% extends 'users/userbase.html' %}
+{% load static %}
+
+{% block contents %}
+<style>
+    body {
+        {% comment %} background: linear-gradient(to right, #141e30, #243b55); {% endcomment %}
+        color: #f0f0f0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+    }
+
+    .form-container {
+        margin-left: 240px; /* Sidebar offset */
+        padding: 40px;
+        max-width: 600px;
+        margin-top: 1px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 2.2rem;
+        color: #00e6e6;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 3px black;
+    }
+
+    form {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #ccc;
+    }
+
+    input[type="number"] {
+        width: 100%;
+        padding: 10px 12px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 6px;
+        background-color: #f9f9f9;
+        color: #000;
+        font-size: 1rem;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        background-color: #4B0082;
+        color: #fff;
+        padding: 12px;
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #6a0dad;
+    }
+</style>
+
+<div class="form-container">
+    <h1>🔋 Battery Health Projection</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="voltage">Voltage (V):</label>
+        <input type="number" name="voltage" required>
+
+        <label for="current">Current (A):</label>
+        <input type="number" name="current" required>
+
+        <label for="temperature">Temperature (°C):</label>
+        <input type="number" name="temperature" required>
+
+        <label for="charge_cycles">Charge Cycles:</label>
+        <input type="number" name="charge_cycles" required>
+
+        <label for="discharge_cycles">Discharge Cycles:</label>
+        <input type="number" name="discharge_cycles" required>
+
+        <label for="avg_charge_rate">Avg. Charge Rate:</label>
+        <input type="number" name="avg_charge_rate" required>
+
+        <label for="avg_discharge_rate">Avg. Discharge Rate:</label>
+        <input type="number" name="avg_discharge_rate" required>
+
+        <label for="time_elapsed">Time Elapsed (hrs):</label>
+        <input type="number" name="time_elapsed" required>
+
+        <input type="submit" value="Estimate">
+    </form>
+</div>
+{% endblock %}

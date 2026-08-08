@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+<style>
+    .container {
+        max-width: 500px;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        padding: 30px;
+        margin: 80px auto;
+        backdrop-filter: blur(8px);
+        margin-top: -100px;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1.2s ease 0.2s forwards;
+        position: relative;
+        z-index: 1;
+    }
+    .heading {
+        font-size: 2.5rem;
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        text-align: center;
+        margin-bottom: 20px;
+        background: linear-gradient(45deg, #22C55E, #10B981);
+        -webkit-background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease forwards;
+    }
+    .form-scroll-container {
+        max-height: 350px; /* Fixed height for scrollable form fields */
+        overflow-y: auto; /* Enable vertical scrollbar */
+        padding-right: 10px; /* Space for scrollbar */
+        margin-bottom: 20px; /* Space below scrollable area */
+        scrollbar-width: thin; /* Firefox: slim scrollbar */
+        scrollbar-color: #22C55E rgba(255, 255, 255, 0.1); /* Firefox: custom scrollbar colors */
+    }
+    .form-scroll-container::-webkit-scrollbar {
+        width: 8px; /* Chrome/Safari: scrollbar width */
+    }
+    .form-scroll-container::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1); /* Scrollbar track */
+        border-radius: 10px;
+    }
+    .form-scroll-container::-webkit-scrollbar-thumb {
+        background: #22C55E; /* Scrollbar thumb */
+        border-radius: 10px;
+    }
+    .form-scroll-container::-webkit-scrollbar-thumb:hover {
+        background: #16A34A; /* Darker green on hover */
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        font-weight: 600;
+        color: #FFFFFF;
+        font-size: 1rem;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        display: block;
+        margin-bottom: 8px;
+    }
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #FFFFFF;
+        padding: 10px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    }
+    .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+    .form-control:focus {
+        border-color: #22C55E;
+        box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+        background-color: rgba(255, 255, 255, 0.2);
+        outline: none;
+    }
+    textarea.form-control {
+        resize: vertical;
+        min-height: 80px;
+    }
+    .btn-primary {
+        position: relative;
+        overflow: hidden;
+        border: none;
+        border-radius: 12px;
+        padding: 14px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background: linear-gradient(45deg, #22C55E, #10B981);
+        color: #FFFFFF;
+        box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        width: 100%;
+        z-index: 1;
+    }
+    .btn-primary:hover {
+        background: linear-gradient(45deg, #16A34A, #059669);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+        transform: translateY(-3px);
+    }
+    .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+        z-index: -1;
+    }
+    .btn-primary:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+    .btn-primary::after {
+        content: '⚡️';
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .btn-primary:hover::after {
+        opacity: 1;
+    }
+    .btn-primary:active {
+        transform: scale(0.95);
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+    .alert-success {
+        background-color: rgba(34, 197, 94, 0.2);
+        color: #FFFFFF;
+        border: 1px solid #22C55E;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 15px;
+        text-align: center;
+        opacity: 0;
+        animation: fadeIn 0.5s ease forwards;
+    }
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+    @media (max-width: 768px) {
+        .container {
+            max-width: 90%;
+            padding: 20px;
+            margin: 50px auto;
+        }
+        .heading {
+            font-size: 2rem;
+        }
+        .form-scroll-container {
+            max-height: 300px; /* Slightly shorter for mobile */
+        }
+        .form-control {
+            padding: 8px;
+            font-size: 0.9rem;
+        }
+        .btn-primary {
+            padding: 12px;
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<div class="content">
+    <div class="container">
+        <h2 class="heading">Register Here</h2>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        <form action="{% url 'UserRegisterForm' %}" method="post">
+            {% csrf_token %}
+            <div class="form-scroll-container">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" name="name" maxlength="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginid">Login ID:</label>
+                    <input type="text" class="form-control" id="loginid" name="loginid" maxlength="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" maxlength="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Mobile:</label>
+                    <input type="text" class="form-control" id="mobile" name="mobile" maxlength="10" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" maxlength="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="locality">Locality:</label>
+                    <input type="text" class="form-control" id="locality" name="locality" maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <textarea class="form-control" id="address" name="address" maxlength="1000" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <input type="text" class="form-control" id="city" name="city" maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="state">State:</label>
+                    <input type="text" class="form-control" id="state" name="state" maxlength="100">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

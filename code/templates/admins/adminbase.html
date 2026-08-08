@@ -1,0 +1,211 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Battery Admin Panel</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: #FFFFFF;
+            background-image: url("{% static 'img/ev_background.jpg' %}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+        header {
+            background-color: rgba(30, 58, 138, 0.85);
+            padding: 30px 0;
+            text-align: center;
+            border-bottom: 4px solid #22C55E;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 1s ease forwards;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(45deg, #22C55E, #10B981);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+        }
+        header h1 span {
+            font-size: 1.2rem;
+            font-weight: 400;
+            display: block;
+            margin-top: 10px;
+            background: none;
+            color: #FFFFFF;
+            text-shadow: none;
+        }
+        nav {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 1.2s ease 0.2s forwards;
+        }
+        nav ul {
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 15px 0;
+            list-style: none;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            position: relative;
+            display: inline-block;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            border-radius: 12px;
+            background: linear-gradient(45deg, #22C55E, #10B981);
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+        nav ul li a:hover,
+        nav ul li a.active {
+            background: linear-gradient(45deg, #16A34A, #059669);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+            transform: translateY(-3px);
+        }
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+            z-index: -1;
+        }
+        nav ul li a:hover::before {
+            width: 200px;
+            height: 200px;
+        }
+        nav ul li a::after {
+            content: '⚡️';
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        nav ul li a:hover::after {
+            opacity: 1;
+        }
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1.4s ease 0.4s forwards;
+        }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 1rem;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #FFFFFF;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        @keyframes fadeInDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 0;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            header h1 span {
+                font-size: 1rem;
+            }
+            nav ul {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            nav ul li {
+                margin: 10px 0;
+            }
+            nav ul li a {
+                padding: 8px 15px;
+                font-size: 1rem;
+            }
+            main {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>EV Battery Admin Panel <span>Optimize, Monitor, and Manage Battery Performance</span></h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'adminhome' %}" class="{% if request.path == '/adminhome/' %}active{% endif %}">Dashboard</a></li>
+            <li><a href="{% url 'RegisterUsersView' %}" class="{% if request.path == '/userDetails/' %}active{% endif %}">User Records</a></li>
+            <li><a href="{% url 'index' %}" class="{% if request.path == '/' %}active{% endif %}">Logout</a></li>
+        </ul>
+    </nav>
+    <main>
+        {% block contents %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2025 EV Battery Optimization System. All rights reserved | Saikumar Velmula</p>
+    </footer>
+    <!-- Bootstrap 5 JS (for responsive utilities) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
